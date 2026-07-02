@@ -8,12 +8,20 @@ import '../domain/entities/recognition_result.dart';
 import 'catalog_repository.dart';
 import 'embedding_service.dart';
 
-class _IndexedProduct {
+/// Una foto indexada: su embedding y a que producto pertenece.
+class _IndexedPhoto {
   final Product product;
   final List<double> embedding;
-  _IndexedProduct(this.product, this.embedding);
+  _IndexedPhoto(this.product, this.embedding);
 }
 
+/// ---------------------------------------------------------------------
+/// RecognitionService
+/// ---------------------------------------------------------------------
+/// Indexa TODAS las fotos de cada producto (no solo una), y al buscar
+/// toma la MEJOR coincidencia entre todas las fotos de cada producto.
+/// Esto hace que el reconocimiento funcione sin importar el angulo
+/// desde el que se tome la foto de escaneo.
 class RecognitionService extends ChangeNotifier {
   final CatalogRepository _catalogRepository;
   final EmbeddingService _embeddingService;
@@ -26,7 +34,7 @@ class RecognitionService extends ChangeNotifier {
   bool indexReady = false;
   String? indexError;
 
-  final List<_IndexedProduct> _index = [];
+  final List<_IndexedPhoto> _index = [];
 
   RecognitionService({
     CatalogRepository? catalogRepository,
@@ -45,10 +53,12 @@ class RecognitionService extends ChangeNotifier {
       final products = await _catalogRepository.loadCatalog();
 
       for (final product in products) {
-        final bytes = await rootBundle.load(product.imagenAsset);
-        final embedding = _embeddingService
-            .extractEmbeddingFromBytes(bytes.buffer.asUint8List());
-        _index.add(_IndexedProduct(product, embedding));
+        for (final imagenAsset in product.imagenesAssets) {
+          final bytes = await rootBundle.load(imagenAsset);
+          final embedding = _embeddingService
+              .extractEmbeddingFromBytes(bytes.buffer.asUint8List());
+          _index.add(_IndexedPhoto(product, embedding));
+        }
       }
 
       indexReady = true;
@@ -67,12 +77,21 @@ class RecognitionService extends ChangeNotifier {
 
     final queryEmbedding = _embeddingService.extractEmbeddingFromBytes(scanBytes);
 
-    final scored = _index
-        .map((entry) => ScoredCandidate(
-              product: entry.product,
-              similitud:
-                  _embeddingService.cosineSimilarity(queryEmbedding, entry.embedding),
-            ))
+    // Similitud maxima entre TODAS las fotos de cada producto.
+    final Map<String, double> mejorSimilitudPorProducto = {};
+    final Map<String, Product> productosPorId = {};
+
+    for (final foto in _index) {
+      final sim = _embeddingService.cosineSimilarity(queryEmbedding, foto.embedding);
+      final actual = mejorSimilitudPorProducto[foto.product.id];
+      if (actual == null || sim > actual) {
+        mejorSimilitudPorProducto[foto.product.id] = sim;
+      }
+      productosPorId[foto.product.id] = foto.product;
+    }
+
+    final scored = mejorSimilitudPorProducto.entries
+        .map((e) => ScoredCandidate(product: productosPorId[e.key]!, similitud: e.value))
         .toList()
       ..sort((a, b) => b.similitud.compareTo(a.similitud));
 
@@ -100,5 +119,8 @@ class RecognitionService extends ChangeNotifier {
     );
   }
 
-  int get totalProductosIndexados => _index.length;
+  int get totalProductosIndexados {
+    final ids = _index.map((e) => e.product.id).toSet();
+    return ids.length;
+  }
 }

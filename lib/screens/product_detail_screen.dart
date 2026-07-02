@@ -36,7 +36,7 @@ class ProductDetailScreen extends StatelessWidget {
                 child: Container(
                   color: colorScheme.surfaceContainerLow,
                   child: Image.asset(
-                    product.imagenAsset,
+                    product.imagenPortada,
                     fit: BoxFit.contain,
                   ),
                 ),

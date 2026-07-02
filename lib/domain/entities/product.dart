@@ -1,5 +1,4 @@
 /// Entidad de dominio: representa un producto del catalogo TRIA.
-/// No depende de Flutter ni de ninguna fuente de datos concreta.
 class Product {
   final String id;
   final String marca;
@@ -8,7 +7,7 @@ class Product {
   final String color;
   final String categoria;
   final String linea;
-  final String imagenAsset;
+  final List<String> imagenesAssets;
   final String descripcion;
   final Map<String, String> fichaTecnica;
 
@@ -20,10 +19,13 @@ class Product {
     required this.color,
     required this.categoria,
     required this.linea,
-    required this.imagenAsset,
+    required this.imagenesAssets,
     required this.descripcion,
     required this.fichaTecnica,
   });
+
+  /// Foto principal (portada) para mostrar en tarjetas y listas.
+  String get imagenPortada => imagenesAssets.first;
 
   factory Product.fromJson(Map<String, dynamic> json) {
     final ficha = <String, String>{};
@@ -31,6 +33,11 @@ class Product {
     fichaJson.forEach((key, value) {
       ficha[key] = value.toString();
     });
+
+    final imagenesJson = json['imagenes'] as List<dynamic>?;
+    final imagenes = imagenesJson != null
+        ? imagenesJson.map((e) => 'assets/catalog/images/$e').toList()
+        : <String>['assets/catalog/images/${json['imagen']}'];
 
     return Product(
       id: json['id'] as String,
@@ -40,7 +47,7 @@ class Product {
       color: json['color'] as String? ?? '',
       categoria: json['categoria'] as String? ?? '',
       linea: json['linea'] as String? ?? '',
-      imagenAsset: json['imagen'] as String,
+      imagenesAssets: imagenes,
       descripcion: json['descripcion'] as String? ?? '',
       fichaTecnica: ficha,
     );

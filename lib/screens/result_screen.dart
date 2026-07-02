@@ -19,6 +19,8 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (resultado.status) {
       case RecognitionStatus.matchUnico:
+        // Navegamos directo a la ficha tecnica, como pide el flujo:
+        // "la IA reconoce el modelo -> aparece automaticamente la info".
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -69,7 +71,7 @@ class _CandidatosScreen extends StatelessWidget {
                     leading: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
-                        c.product.imagenAsset,
+                        c.product.imagenPortada,
                         width: 56,
                         height: 56,
                         fit: BoxFit.cover,
