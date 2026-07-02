@@ -26,6 +26,9 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Generar carpeta web faltante
+        run: flutter create --platforms web .
+
       - name: Activar soporte web
         run: flutter config --enable-web
 
