@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ import 'product_detail_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   final RecognitionResult resultado;
-  final File fotoEscaneada;
+  final Uint8List fotoEscaneada;
 
   const ResultScreen({
     super.key,
@@ -19,8 +19,6 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (resultado.status) {
       case RecognitionStatus.matchUnico:
-        // Navegamos directo a la ficha tecnica, como pide el flujo:
-        // "la IA reconoce el modelo -> aparece automaticamente la info".
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -44,7 +42,7 @@ class ResultScreen extends StatelessWidget {
 
 class _CandidatosScreen extends StatelessWidget {
   final RecognitionResult resultado;
-  final File foto;
+  final Uint8List foto;
 
   const _CandidatosScreen({required this.resultado, required this.foto});
 
@@ -102,7 +100,7 @@ class _CandidatosScreen extends StatelessWidget {
 
 class _NoIdentificadoScreen extends StatelessWidget {
   final RecognitionResult resultado;
-  final File foto;
+  final Uint8List foto;
 
   const _NoIdentificadoScreen({required this.resultado, required this.foto});
 
