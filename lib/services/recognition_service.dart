@@ -8,20 +8,12 @@ import '../domain/entities/recognition_result.dart';
 import 'catalog_repository.dart';
 import 'embedding_service.dart';
 
-/// Una foto indexada: su embedding y a que producto pertenece.
 class _IndexedPhoto {
   final Product product;
   final List<double> embedding;
   _IndexedPhoto(this.product, this.embedding);
 }
 
-/// ---------------------------------------------------------------------
-/// RecognitionService
-/// ---------------------------------------------------------------------
-/// Indexa TODAS las fotos de cada producto (no solo una), y al buscar
-/// toma la MEJOR coincidencia entre todas las fotos de cada producto.
-/// Esto hace que el reconocimiento funcione sin importar el angulo
-/// desde el que se tome la foto de escaneo.
 class RecognitionService extends ChangeNotifier {
   final CatalogRepository _catalogRepository;
   final EmbeddingService _embeddingService;
@@ -77,7 +69,6 @@ class RecognitionService extends ChangeNotifier {
 
     final queryEmbedding = _embeddingService.extractEmbeddingFromBytes(scanBytes);
 
-    // Similitud maxima entre TODAS las fotos de cada producto.
     final Map<String, double> mejorSimilitudPorProducto = {};
     final Map<String, Product> productosPorId = {};
 
@@ -102,19 +93,8 @@ class RecognitionService extends ChangeNotifier {
       );
     }
 
-    final hayVentajaClara = scored.length == 1 ||
-        (scored[0].similitud >= umbralAlto &&
-            scored[0].similitud - scored[1].similitud >= ventajaMinimaParaMatchUnico);
-
-    if (hayVentajaClara) {
-      return RecognitionResult(
-        status: RecognitionStatus.matchUnico,
-        candidatos: scored.take(5).toList(),
-      );
-    }
-
     return RecognitionResult(
-      status: RecognitionStatus.variosCandidatos,
+      status: RecognitionStatus.matchUnico,
       candidatos: scored.take(5).toList(),
     );
   }
