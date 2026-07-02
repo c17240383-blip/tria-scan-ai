@@ -15,7 +15,7 @@ dependencies:
   provider: ^6.1.2
 
   # Camara para el escaneo
-  camera: ^0.10.6
+  image_picker: ^1.1.2
 
   # Decodificacion y procesamiento de imagenes para el embedding
   image: ^4.2.0
