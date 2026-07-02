@@ -1,0 +1,36 @@
+name: tria_scan_ai
+description: "TRIA Scan AI - Identificacion visual de calzado para uso interno."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Estado simple (sin codegen, para minimizar riesgos de compilacion)
+  provider: ^6.1.2
+
+  # Camara para el escaneo
+  camera: ^0.10.6
+
+  # Decodificacion y procesamiento de imagenes para el embedding
+  image: ^4.2.0
+
+  # Tipografia moderna
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/catalog/catalog.json
+    - assets/catalog/images/

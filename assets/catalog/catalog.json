@@ -1,0 +1,149 @@
+{
+  "products": [
+    {
+      "id": "triples-zurich-36100-negro",
+      "marca": "TRIPLES",
+      "modelo": "Zurich 36100",
+      "sku": "7500501181312",
+      "color": "Negro",
+      "categoria": "Formal",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/zurich_36100_negro.jpg",
+      "descripcion": "Zapato tipo mocasin de la coleccion Formal, disenado con materiales de calidad y durabilidad. Ideal para lucir elegante en cualquier evento sin sacrificar comodidad.",
+      "fichaTecnica": {
+        "Material del corte": "Ovino",
+        "Forro": "Ovino",
+        "Suela": "PU",
+        "Tacon": "2.5 cm",
+        "Construccion": "California",
+        "Cierre": "Cordones",
+        "Uso recomendado": "Formal / oficina"
+      }
+    },
+    {
+      "id": "triples-ares-37610-ocre",
+      "marca": "TRIPLES",
+      "modelo": "Ares 37610",
+      "sku": "7500501330819",
+      "color": "Ocre",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/ares_37610_ocre.png",
+      "descripcion": "Botin robusto y confiable en piel de alta calidad. Combina resistencia, confort y estilo moderno, adaptable al entorno laboral y al uso diario.",
+      "fichaTecnica": {
+        "Material del corte": "Piel",
+        "Forro": "Flor de res",
+        "Suela": "EVA",
+        "Construccion": "Reforzada en puntas y talones",
+        "Cierre": "Agujetas",
+        "Uso recomendado": "Diario / laboral"
+      }
+    },
+    {
+      "id": "triples-enzo-arnes-35808-ocre",
+      "marca": "TRIPLES",
+      "modelo": "Enzo (con arnes) 35808",
+      "sku": "7500501319296",
+      "color": "Ocre",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/enzo_arnes_35808_ocre.png",
+      "descripcion": "Botin con arnes que aporta un caracter robusto y moderno. Piel de alta calidad, estilo urbano con durabilidad y confort para el uso diario.",
+      "fichaTecnica": {
+        "Material del corte": "Piel",
+        "Detalle de diseno": "Arnes decorativo",
+        "Uso recomendado": "Urbano / diario"
+      }
+    },
+    {
+      "id": "triples-alo-37630-miel",
+      "marca": "TRIPLES",
+      "modelo": "Alo 37630",
+      "sku": "7500501331953",
+      "color": "Miel",
+      "categoria": "Casual / Sneaker",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/alo_37630_miel.jpg",
+      "descripcion": "Sneaker casual en piel genuina de alta calidad. Diseno ligero y flexible que se adapta al movimiento natural del pie, ideal para uso urbano.",
+      "fichaTecnica": {
+        "Material del corte": "Piel genuina",
+        "Suela": "Amortiguada",
+        "Uso recomendado": "Urbano / casual"
+      }
+    },
+    {
+      "id": "triples-ezra-35903-negro",
+      "marca": "TRIPLES",
+      "modelo": "Ezra 35903",
+      "sku": "",
+      "color": "Negro",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/ezra_35903_negro.jpg",
+      "descripcion": "Botin casual Triples de diseno versatil, pensado para el uso diario con un balance entre estilo urbano y comodidad.",
+      "fichaTecnica": {
+        "Uso recomendado": "Urbano / diario"
+      }
+    },
+    {
+      "id": "triples-enzo-chelsea-35800-negro",
+      "marca": "TRIPLES",
+      "modelo": "Enzo Chelsea 35800",
+      "sku": "",
+      "color": "Negro",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/enzo_chelsea_35800_negro.jpg",
+      "descripcion": "Botin Chelsea en gamuza, silueta limpia y minimalista, facil de combinar en el dia a dia.",
+      "fichaTecnica": {
+        "Material del corte": "Gamuza",
+        "Uso recomendado": "Urbano / diario"
+      }
+    },
+    {
+      "id": "triples-enzo-chelsea-35800-beige",
+      "marca": "TRIPLES",
+      "modelo": "Enzo Chelsea 35800",
+      "sku": "",
+      "color": "Beige",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/enzo_chelsea_35800_beige.png",
+      "descripcion": "Botin Chelsea en gamuza beige, silueta limpia y minimalista, facil de combinar en el dia a dia.",
+      "fichaTecnica": {
+        "Material del corte": "Gamuza",
+        "Uso recomendado": "Urbano / diario"
+      }
+    },
+    {
+      "id": "triples-parma-36160-cafe",
+      "marca": "TRIPLES",
+      "modelo": "Parma 36160",
+      "sku": "",
+      "color": "Cafe",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/parma_36160_cafe.jpg",
+      "descripcion": "Botin Chelsea de piel color cafe, acabado clasico y versatil para uso diario.",
+      "fichaTecnica": {
+        "Material del corte": "Piel",
+        "Uso recomendado": "Urbano / diario"
+      }
+    },
+    {
+      "id": "triples-zurich-chelsea-36103-negro",
+      "marca": "TRIPLES",
+      "modelo": "Zurich Chelsea 36103",
+      "sku": "",
+      "color": "Negro",
+      "categoria": "Casual",
+      "linea": "Calzado de Piel Genuina",
+      "imagen": "assets/catalog/images/zurich_chelsea_36103_negro.png",
+      "descripcion": "Botin Chelsea de piel negro, linea Zurich, combina elegancia casual con comodidad para el uso diario.",
+      "fichaTecnica": {
+        "Material del corte": "Piel",
+        "Uso recomendado": "Urbano / diario"
+      }
+    }
+  ]
+}
