@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -8,32 +8,16 @@ import '../domain/entities/recognition_result.dart';
 import 'catalog_repository.dart';
 import 'embedding_service.dart';
 
-/// Entrada del indice: un producto ya con su embedding calculado.
 class _IndexedProduct {
   final Product product;
   final List<double> embedding;
   _IndexedProduct(this.product, this.embedding);
 }
 
-/// ---------------------------------------------------------------------
-/// RecognitionService
-/// ---------------------------------------------------------------------
-/// Orquesta el pipeline completo:
-///   1. Indexacion offline (una vez, al abrir la app): genera el
-///      embedding de cada foto oficial del catalogo.
-///   2. Consulta online (cada escaneo): genera el embedding de la foto
-///      capturada y la compara contra el indice.
-///   3. Aplica los umbrales de confianza definidos en la arquitectura:
-///      nunca se inventa un resultado.
-///
-/// En produccion, el paso 1 se movera a una Edge Function de Supabase
-/// (pgvector) y el paso 2 solo enviara el vector via red. Aqui, para el
-/// piloto, todo corre localmente en el dispositivo.
 class RecognitionService extends ChangeNotifier {
   final CatalogRepository _catalogRepository;
   final EmbeddingService _embeddingService;
 
-  // Umbrales calibrables (en produccion vendrian de configuracion remota).
   static const double umbralAlto = 0.90;
   static const double umbralMedio = 0.75;
   static const double ventajaMinimaParaMatchUnico = 0.02;
@@ -50,8 +34,6 @@ class RecognitionService extends ChangeNotifier {
   })  : _catalogRepository = catalogRepository ?? CatalogRepository(),
         _embeddingService = embeddingService ?? EmbeddingService();
 
-  /// Construye el indice de embeddings a partir del catalogo. Se llama
-  /// una vez al iniciar la app.
   Future<void> buildIndex() async {
     if (indexReady || isIndexing) return;
 
@@ -78,15 +60,12 @@ class RecognitionService extends ChangeNotifier {
     }
   }
 
-  /// Identifica una foto de escaneo (archivo capturado por la camara)
-  /// contra el catalogo indexado.
-  Future<RecognitionResult> identify(File scanFile) async {
+  Future<RecognitionResult> identify(Uint8List scanBytes) async {
     if (!indexReady) {
       throw StateError('El indice todavia no esta listo.');
     }
 
-    final queryEmbedding =
-        await _embeddingService.extractEmbeddingFromFile(scanFile);
+    final queryEmbedding = _embeddingService.extractEmbeddingFromBytes(scanBytes);
 
     final scored = _index
         .map((entry) => ScoredCandidate(
